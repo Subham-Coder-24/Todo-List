@@ -1,59 +1,42 @@
 import React, { useState } from "react";
+import './App.css';
+
 function App() {
-  const [fullname, setFullname] = useState({
-    fName:"",
-    lName:"",
-    email:""
-  });
-  function updateFullname(event){
+  const [goods, setgoods] = useState();
+  const [items, setitems] = useState(["Add items"]);
 
-    // const newValue = event.target.value;
-    // const input = event.target.name;
-    const {value:newValue,name:input}=event.target;
-    
-    
-        
-    // if(input === "fName"){
-    //   setFullname({fname:newValue});
-    // }else if(input === "lName"){
-    //   setFullname({lname:newValue});
-    // }
-
-    // setFullname((prevValue)=>{
-    //   if(input === "fName"){
-    //     return{
-    //       fName:newValue,
-    //       lName:prevValue.lName,
-    //       email:prevValue.email
-    //     }
-    //   }else if(input === "lName"){
-    //     return{
-    //         fName:prevValue.fName,
-    //         lName:newValue,
-    //         email:prevValue.email
-    //       }
-    //   }else if(input === "email"){
-    //     return{
-    //         fName:prevValue.fName,
-    //         lName:prevValue.lName,
-    //         email:newValue
-    //       }
-    //   }  
-    // })
-
-    
-    setFullname((prevValue)=>({...prevValue,[input]:newValue}));
-
+  function fun(event){
+    const x = event.target.value;
+    setgoods(x);
   }
+  function fun2(){
+    setitems((prevItem)=>{
+      return [...prevItem, goods]
+    });
+    setgoods(" ");
+  }
+  console.log(goods);
   return (
-    
-    <div>
-      <div>Hello {fullname.fName} {fullname.lName} {fullname.email}</div>
-      <input name="fName" onChange={updateFullname} ></input>
-      <input name="lName" onChange={updateFullname} ></input>
-      <input name="email" onChange={updateFullname} ></input>
-      <br></br>
-      <button>Click me</button>
+    <div className="container">
+      <div className="heading">
+        <h1>To-Do List</h1>
+      </div>
+
+      <div className="form">
+        <input value={goods} onChange={fun} type="text" name="item" />
+        <button onClick={fun2} >
+          <span>Add</span>
+        </button>
+      </div>
+
+      <div>
+        <ul>
+          {items.map((todo)=>{
+            return <li>{todo}</li>
+          })}
+        </ul>
+      </div>
+
     </div>
   );
 }
